@@ -25,18 +25,21 @@
             var tbody = table.getElementsByTagName("tbody")[0];
 
             for (var i = 0; i < urls.length; i++) {
-                var url = urls[i].trim();
-                if (url !== "") {
+                var urlPair = urls[i].trim().split(',');
+                var etsyUrl = urlPair[0].trim();
+                var fileUrl = urlPair[1].trim();
+                
+                if (etsyUrl !== "" && fileUrl !== "") {
                     var row = document.createElement("tr");
                     var etsyLinkCell = document.createElement("td");
                     var fileLinkCell = document.createElement("td");
                     var etsyLink = document.createElement("a");
                     var fileLink = document.createElement("a");
 
-                    etsyLink.href = url;
-                    etsyLink.textContent = url;
-                    fileLink.href = url;
-                    fileLink.textContent = url;
+                    etsyLink.href = etsyUrl;
+                    etsyLink.textContent = etsyUrl;
+                    fileLink.href = fileUrl;
+                    fileLink.textContent = fileUrl;
 
                     etsyLinkCell.appendChild(etsyLink);
                     fileLinkCell.appendChild(fileLink);
