@@ -8,6 +8,45 @@
         }
     </style>
     <script>
+        function loadUrls() {
+            fetch('urls.txt')
+                .then(response => response.text())
+                .then(data => {
+                    var urls = data.split('\n');
+                    generateTable(urls);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function generateTable(urls) {
+            var table = document.getElementById("myTable");
+            var tbody = table.getElementsByTagName("tbody")[0];
+
+            for (var i = 0; i < urls.length; i++) {
+                var url = urls[i].trim();
+                if (url !== "") {
+                    var row = document.createElement("tr");
+                    var etsyLinkCell = document.createElement("td");
+                    var fileLinkCell = document.createElement("td");
+                    var etsyLink = document.createElement("a");
+                    var fileLink = document.createElement("a");
+
+                    etsyLink.href = url;
+                    etsyLink.textContent = url;
+                    fileLink.href = url;
+                    fileLink.textContent = url;
+
+                    etsyLinkCell.appendChild(etsyLink);
+                    fileLinkCell.appendChild(fileLink);
+                    row.appendChild(etsyLinkCell);
+                    row.appendChild(fileLinkCell);
+                    tbody.appendChild(row);
+                }
+            }
+        }
+
         function filterTable() {
             var input, filter, table, tr, td, i, txtValue;
             input = document.getElementById("filterInput");
@@ -33,7 +72,7 @@
         }
     </script>
 </head>
-<body>
+<body onload="loadUrls()">
     <label for="filterInput">Filter Table:</label>
     <input type="text" id="filterInput" onkeyup="filterTable()" placeholder="Enter text...">
     <table id="myTable">
@@ -44,22 +83,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td><a href="https://www.etsy.com/link1">https://www.etsy.com/link1</a></td>
-                <td><a href="https://www.example.com/file1">https://www.example.com/file1</a></td>
-            </tr>
-            <tr>
-                <td><a href="https://www.etsy.com/link2">https://www.etsy.com/link2</a></td>
-                <td><a href="https://www.example.com/file2">https://www.example.com/file2</a></td>
-            </tr>
-            <tr>
-                <td><a href="https://www.etsy.com/link3">https://www.etsy.com/link3</a></td>
-                <td><a href="https://www.example.com/file3">https://www.example.com/file3</a></td>
-            </tr>
-            <tr>
-                <td><a href="https://www.etsy.com/link4">https://www.etsy.com/link4</a></td>
-                <td><a href="https://www.example.com/file4">https://www.example.com/file4</a></td>
-            </tr>
+            <!-- Table rows will be dynamically generated here -->
         </tbody>
     </table>
 </body>
